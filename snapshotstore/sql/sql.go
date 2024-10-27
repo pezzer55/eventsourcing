@@ -63,7 +63,7 @@ func (s *SQL) Get(ctx context.Context, aggregateID, aggregateType string) (core.
 	var version core.Version
 	var state []byte
 
-	selectStm := `Select version, global_version, state from snapshots where id=? and type=?`
+	selectStm := `Select version, global_version, state from snapshots where id=$1 and type=$2`
 	row := s.db.QueryRow(selectStm, aggregateID, aggregateType)
 	if row.Err() != nil {
 		return core.Snapshot{}, row.Err()
